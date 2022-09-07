@@ -81,6 +81,7 @@ Item {
         for (var monitor of [cpuGraph, ramGraph, netGraph]) {
             monitor.firstLineLabel.font.pixelSize = fontPixelSize
             monitor.secondLineLabel.font.pixelSize = fontPixelSize
+            if (monitor.firstLineLeftLabel) monitor.firstLineLeftLabel.font.pixelSize = fontPixelSize
         }
     }
 
@@ -109,6 +110,12 @@ Item {
         }
     }
 
+    function keepInteger(str) {
+        var r = str.match(/^([.\d]*)(.*)/)
+        if (!(r && r[1])) return ""
+        return Number(r[1]) + r[2]
+    }
+
     // Graphs
     RMComponents.SensorGraph {
         id: cpuGraph
@@ -122,6 +129,8 @@ Item {
         label: "CPU"
         labelColor: cpuColor
         secondLabel: showClock ? i18n("⏲ Clock") : ""
+        hasFirstLeftLabel: true
+        firstLeftLabel: "🌡️"
 
         yRange {
             from: 0
@@ -131,6 +140,7 @@ Item {
         // Display first core frequency
         onDataTick: {
             if (canSeeValue(1)) {
+                firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
                 secondLineLabel.text = cpuFrequencySensor.formattedValue
                 secondLineLabel.visible = true
             }
@@ -140,7 +150,12 @@ Item {
             enabled: showClock
             sensorId: "cpu/cpu0/frequency"
         }
+        Sensors.Sensor {
+            id: cpuTempSensor
+            sensorId: "cpu/cpu0/temperature"
+        }
         onShowValueWhenMouseMove: {
+            firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
             secondLineLabel.text = cpuFrequencySensor.formattedValue
             secondLineLabel.visible = true
         }

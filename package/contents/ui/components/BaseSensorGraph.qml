@@ -14,9 +14,13 @@ Charts.LineChart {
     readonly property alias textContainer: textContainer
     property alias label: textContainer.label
     property alias labelColor: textContainer.labelColor
+    property alias firstLeftLabel: textContainer.firstLeftLabel
+    property alias firstLeftLabelColor: textContainer.firstLeftLabelColor
+    property alias hasFirstLeftLabel: textContainer.hasFirstLeftLabel
     property alias secondLabel: textContainer.secondLabel
     property alias secondLabelColor: textContainer.secondLabelColor
     readonly property alias firstLineLabel: textContainer.firstLineLabel
+    readonly property alias firstLineLeftLabel: textContainer.firstLineLeftLabel
     readonly property alias secondLineLabel: textContainer.secondLineLabel
 
     // Graph properties

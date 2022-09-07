@@ -6,11 +6,15 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 Item {
     id: graphText
     readonly property alias firstLineLabel: firstLineLabel
+    readonly property alias firstLineLeftLabel: firstLineLeftLabel
     readonly property alias secondLineLabel: secondLineLabel
 
     property color textColor: theme.textColor
     property string label: ''
     property color labelColor: theme.highlightColor
+    property string firstLeftLabel: ''
+    property color firstLeftLabelColor: theme.highlightColor
+    property bool hasFirstLeftLabel: false
     property string secondLabel: ''
     property color secondLabelColor: theme.textColor
 
@@ -26,13 +30,13 @@ Item {
         switch (displayment) {
             case 'always':
             case 'hover-hints':
-                firstLineLabel.color = secondLineLabel.color = textColor
+                firstLineLabel.color = firstLineLeftLabel.color = secondLineLabel.color = textColor
                 showValueInLabel()
                 valueVisible = true
                 break
 
             case 'hover':
-                firstLineLabel.visible = secondLineLabel.visible = false
+                firstLineLabel.visible = firstLineLeftLabel.visible = secondLineLabel.visible = false
 
                 valueVisible = mouseArea.containsMouse
                 break
@@ -42,6 +46,10 @@ Item {
 
                 firstLineLabel.text = label
                 firstLineLabel.color = labelColor
+
+                firstLineLeftLabel.text = firstLeftLabel
+                firstLineLeftLabel.color = firstLeftLabelColor
+                firstLineLeftLabel.visible = hasFirstLeftLabel
 
                 secondLineLabel.text = secondLabel
                 secondLineLabel.color = secondLabelColor
@@ -57,15 +65,32 @@ Item {
         state: placement
 
         // First line
-        PlasmaComponents.Label {
-            id: firstLineLabel
+        Row {
+            id: firstLineContainer
             width: parent.width
-            height: contentHeight
 
-            text: label
-            color: labelColor
+            PlasmaComponents.Label {
+                id: firstLineLeftLabel
+                width: 0.4 * parent.width
+                height: contentHeight
+                horizontalAlignment: Text.AlignLeft
 
-            font.pointSize: -1
+                text: firstLeftLabel
+                color: firstLeftLabelColor
+
+                font.pointSize: -1
+                visible: hasFirstLeftLabel
+            }
+            PlasmaComponents.Label {
+                id: firstLineLabel
+                width: hasFirstLeftLabel ? 0.6 * parent.width : parent.width
+                height: contentHeight
+
+                text: label
+                color: labelColor
+
+                font.pointSize: -1
+            }
         }
         PlasmaComponents.Label {
             id: secondLineLabel
@@ -173,6 +198,7 @@ Item {
                     valueVisible = true
 
                     firstLineLabel.visible = true
+                    firstLineLeftLabel.visible = hasFirstLeftLabel
                     secondLineLabel.visible = secondLineLabel.text != ''
                     break
                 case 'hover-hints':
@@ -181,6 +207,10 @@ Item {
                     firstLineLabel.text = label
                     firstLineLabel.color = labelColor
                     firstLineLabel.visible = true
+
+                    firstLineLeftLabel.text = firstLeftLabel
+                    firstLineLeftLabel.color = firstLeftLabelColor
+                    firstLineLeftLabel.visible = hasFirstLeftLabel
 
                     secondLineLabel.text = secondLabel
                     secondLineLabel.color = secondLabelColor
@@ -194,10 +224,10 @@ Item {
                 case 'hover':
                     valueVisible = false
 
-                    firstLineLabel.visible = secondLineLabel.visible = false
+                    firstLineLabel.visible = firstLineLeftLabel.visible = secondLineLabel.visible = false
                     break
                 case 'hover-hints':
-                    firstLineLabel.color = secondLineLabel.color = textColor
+                    firstLineLabel.color = firstLineLeftLabel.color = secondLineLabel.color = textColor
                     showValueInLabel()
                     valueVisible = true
                     break
