@@ -49,8 +49,17 @@ Item {
     property color cpuColor: plasmoid.configuration.customCpuColor ? plasmoid.configuration.cpuColor : primaryColor
     property color ramColor: plasmoid.configuration.customRamColor ? plasmoid.configuration.ramColor : primaryColor
     property color swapColor: plasmoid.configuration.customSwapColor ? plasmoid.configuration.swapColor : negativeColor
+    property color swapTextColor: plasmoid.configuration.customSwapTextColor ? plasmoid.configuration.swapTextColor : primaryColor
     property color netDownColor: plasmoid.configuration.customNetDownColor ? plasmoid.configuration.netDownColor : primaryColor
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : negativeColor
+    readonly property color temperatureColor: plasmoid.configuration.customTemperatureColor ? plasmoid.configuration.temperatureColor : primaryColor
+    readonly property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : "#f6cd00"
+    readonly property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : "#da4453"
+
+    property int thresholdWarningCpuTemp: plasmoid.configuration.thresholdWarningCpuTemp
+    property int thresholdCriticalCpuTemp: plasmoid.configuration.thresholdCriticalCpuTemp
+    property int thresholdWarningMemory: plasmoid.configuration.thresholdWarningMemory
+    property int thresholdCriticalMemory: plasmoid.configuration.thresholdCriticalMemory
 
     // Component properties
     property int containerCount: (showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0)
@@ -114,6 +123,13 @@ Item {
         }
     }
 
+    onThresholdWarningMemoryChanged: {
+        maxMemoryQueryModel.enabled = true
+    }
+    onThresholdCriticalMemoryChanged: {
+        maxMemoryQueryModel.enabled = true
+    }
+
     function keepInteger(str) {
         var r = str.match(/^([.\d]*)(.*)/)
         if (!(r && r[1])) return ""
@@ -141,10 +157,17 @@ Item {
             to: 100
         }
 
+        function getCpuTempColor(value) {
+            if (value >= thresholdCriticalCpuTemp) return criticalColor
+            else if (value >= thresholdWarningCpuTemp) return warningColor
+            else return temperatureColor
+        }
+
         // Display first core frequency
         onDataTick: {
             if (canSeeValue(0) && showCpuTemperature) {
                 firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
+                firstLineLeftLabel.color = getCpuTempColor(cpuTempSensor.value)
             }
             if (canSeeValue(1)) {
                 secondLineLabel.text = cpuFrequencySensor.formattedValue
@@ -162,7 +185,10 @@ Item {
             sensorId: "cpu/cpu0/temperature"
         }
         onShowValueWhenMouseMove: {
-            if (showCpuTemperature) firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
+            if (showCpuTemperature) {
+                firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
+                firstLineLeftLabel.color = getCpuTempColor(cpuTempSensor.value)
+            }
             secondLineLabel.text = cpuFrequencySensor.formattedValue
             secondLineLabel.visible = true
         }
@@ -180,6 +206,7 @@ Item {
         id: ramGraph
         colors: [ramColor, swapColor]
         secondLabelWhenZero: false
+        textColors: [theme.textColor, swapTextColor]
 
         visible: showRamMonitor
         width: itemWidth
@@ -197,7 +224,7 @@ Item {
         // Get max y of graph
         property var maxMemory: [-1, -1]
         Sensors.SensorDataModel {
-            id: totalSensorsModel
+            id: maxMemoryQueryModel
             sensors: ["memory/physical/total", "memory/swap/total"]
             enabled: true
 
@@ -208,17 +235,14 @@ Item {
                     enabled = false
                     if (!showMemoryInPercent) {
                         ramGraph.uplimits = ramGraph.maxMemory
+                        ramGraph.thresholds[0] = [ramGraph.maxMemory[0] * (thresholdWarningMemory / 100.0), ramGraph.maxMemory[0] * (thresholdCriticalMemory / 100.0)]
                     } else {
                         ramGraph.uplimits = [100, 100]
+                        ramGraph.thresholds[0] = [thresholdWarningMemory, thresholdCriticalMemory]
                     }
                     ramGraph.updateSensors()
                 }
             }
-        }
-
-        // Set the color of Swap
-        onShowValueWhenMouseMove: {
-            secondLineLabel.color = swapColor
         }
 
         function updateSensors() {

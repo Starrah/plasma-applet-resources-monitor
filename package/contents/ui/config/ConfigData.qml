@@ -17,6 +17,10 @@ QtLayouts.ColumnLayout {
     readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property double cfg_networkReceivingTotal: 0.0
     property double cfg_networkSendingTotal: 0.0
+    property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.value
+    property alias cfg_thresholdCriticalCpuTemp: thresholdCriticalCpuTemp.value
+    property alias cfg_thresholdWarningMemory: thresholdWarningMemory.value
+    property alias cfg_thresholdCriticalMemory: thresholdCriticalMemory.value
 
     readonly property var networkSpeedOptions: [
         {
@@ -62,6 +66,11 @@ QtLayouts.ColumnLayout {
             tab: networkPage
             iconSource: "preferences-system-network"
             text: i18n("Network")
+        }
+        PlasmaComponents.TabButton {
+            tab: thresholdPage
+            iconSource: "dialog-warning"
+            text: i18n("Thresholds")
         }
     }
 
@@ -234,6 +243,82 @@ QtLayouts.ColumnLayout {
                 }
                 Component.onCompleted: {
                     valueReal = parseFloat(plasmoid.configuration.networkSendingTotal) / 1000
+                }
+            }
+        }
+
+        Kirigami.FormLayout {
+            id: thresholdPage
+            wideMode: true
+
+
+            QtLayouts.GridLayout {
+                QtLayouts.Layout.fillWidth: true
+                columns: 2
+                rowSpacing: Kirigami.Units.smallSpacing
+                columnSpacing: Kirigami.Units.largeSpacing
+
+                PlasmaComponents.Label {
+                    text: i18n("Warning     ")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                }
+                PlasmaComponents.Label {
+                    text: i18n("    Critical")
+                    font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+                }
+            }
+
+            QtLayouts.GridLayout {
+                Kirigami.FormData.label: i18n("CPU Temperature:")
+                QtLayouts.Layout.fillWidth: true
+                columns: 2
+                rowSpacing: Kirigami.Units.smallSpacing
+                columnSpacing: Kirigami.Units.largeSpacing
+
+                RMControls.SpinBox {
+                    id: thresholdWarningCpuTemp
+                    Kirigami.FormData.label: i18n("Warning")
+                    QtLayouts.Layout.fillWidth: true
+
+                    textFromValue: function(value, locale) {
+                        return value + " °C"
+                    }
+                }
+                RMControls.SpinBox {
+                    id: thresholdCriticalCpuTemp
+                    Kirigami.FormData.label: i18n("Critical")
+                    QtLayouts.Layout.fillWidth: true
+
+                    textFromValue: function(value, locale) {
+                        return value + " °C"
+                    }
+                }
+            }
+
+            QtLayouts.GridLayout {
+                Kirigami.FormData.label: i18n("Physical Memory Usage:")
+                QtLayouts.Layout.fillWidth: true
+                columns: 2
+                rowSpacing: Kirigami.Units.smallSpacing
+                columnSpacing: Kirigami.Units.largeSpacing
+
+                RMControls.SpinBox {
+                    id: thresholdWarningMemory
+                    Kirigami.FormData.label: i18n("Warning")
+                    QtLayouts.Layout.fillWidth: true
+
+                    textFromValue: function(value, locale) {
+                        return value + " %"
+                    }
+                }
+                RMControls.SpinBox {
+                    id: thresholdCriticalMemory
+                    Kirigami.FormData.label: i18n("Critical")
+                    QtLayouts.Layout.fillWidth: true
+
+                    textFromValue: function(value, locale) {
+                        return value + " %"
+                    }
                 }
             }
         }

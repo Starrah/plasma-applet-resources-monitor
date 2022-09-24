@@ -51,6 +51,18 @@
         <entry name="networkSendingTotal" type="Double">
             <default>100000.0</default>
         </entry>
+        <entry name="thresholdWarningCpuTemp" type="Int">
+            <default>85</default>
+        </entry>
+        <entry name="thresholdCriticalCpuTemp" type="Int">
+            <default>105</default>
+        </entry>
+        <entry name="thresholdWarningMemory" type="Int">
+            <default>70</default>
+        </entry>
+        <entry name="thresholdCriticalMemory" type="Int">
+            <default>90</default>
+        </entry>
     </group>
 
     <group name="Appearance">
@@ -89,6 +101,12 @@
             <default>top-right</default>
         </entry>
 
+        <entry name="customTemperatureColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="temperatureColor" type="Color">
+        </entry>
+
         <entry name="customCpuColor" type="Bool">
             <default>false</default>
         </entry>
@@ -105,6 +123,11 @@
         </entry>
         <entry name="swapColor" type="Color">
         </entry>
+        <entry name="customSwapTextColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="swapTextColor" type="Color">
+        </entry>
 
         <entry name="customNetDownColor" type="Bool">
             <default>false</default>
@@ -115,6 +138,19 @@
             <default>false</default>
         </entry>
         <entry name="netUpColor" type="Color">
+        </entry>
+
+        <entry name="customWarningColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="warningColor" type="Color">
+            <default>#f6cd00</default>
+        </entry>
+        <entry name="customCriticalColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="criticalColor" type="Color">
+            <default>#da4453</default>
         </entry>
     </group>
 

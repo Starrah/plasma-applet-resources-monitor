@@ -21,16 +21,24 @@ QtLayouts.ColumnLayout {
     property string cfg_placement: ""
     property string cfg_displayment: ""
 
+    property alias cfg_customTemperatureColor: temperatureColor.checked
+    property alias cfg_temperatureColor: temperatureColor.value
     property alias cfg_customCpuColor: cpuColor.checked
     property alias cfg_cpuColor: cpuColor.value
     property alias cfg_customRamColor: ramColor.checked
     property alias cfg_ramColor: ramColor.value
     property alias cfg_customSwapColor: swapColor.checked
     property alias cfg_swapColor: swapColor.value
+    property alias cfg_customSwapTextColor: swapTextColor.checked
+    property alias cfg_swapTextColor: swapTextColor.value
     property alias cfg_customNetDownColor: netDownColor.checked
     property alias cfg_netDownColor: netDownColor.value
     property alias cfg_customNetUpColor: netUpColor.checked
     property alias cfg_netUpColor: netUpColor.value
+    property alias cfg_customWarningColor: warningColor.checked
+    property alias cfg_warningColor: warningColor.value
+    property alias cfg_customCriticalColor: criticalColor.checked
+    property alias cfg_criticalColor: criticalColor.value
 
     property color primaryColor: theme.highlightColor
     property color negativeColor: theme.negativeTextColor
@@ -195,6 +203,14 @@ QtLayouts.ColumnLayout {
             id: colorsPage
 
             RMControls.ColorSelector {
+                id: temperatureColor
+                Kirigami.FormData.label: i18n("Temperature text color:")
+
+                dialogTitle: i18n("Choose text color for temperature text (when in normal status)")
+                defaultColor: primaryColor
+            }
+
+            RMControls.ColorSelector {
                 id: cpuColor
                 Kirigami.FormData.label: i18n("CPU color:")
 
@@ -216,6 +232,13 @@ QtLayouts.ColumnLayout {
                 dialogTitle: i18n("Choose Swap graph color")
                 defaultColor: negativeColor
             }
+            RMControls.ColorSelector {
+                id: swapTextColor
+                Kirigami.FormData.label: i18n("Swap Text color:")
+
+                dialogTitle: i18n("Choose Swap text color")
+                defaultColor: primaryColor
+            }
 
             RMControls.ColorSelector {
                 id: netDownColor
@@ -230,6 +253,21 @@ QtLayouts.ColumnLayout {
 
                 dialogTitle: i18n("Choose network sending graph color")
                 defaultColor: negativeColor
+            }
+
+            RMControls.ColorSelector {
+                id: warningColor
+                Kirigami.FormData.label: i18n("Warning text color:")
+
+                dialogTitle: i18n("Choose text color when the value is in warning status")
+                defaultColor: "#f6cd00"
+            }
+            RMControls.ColorSelector {
+                id: criticalColor
+                Kirigami.FormData.label: i18n("Critical text color:")
+
+                dialogTitle: i18n("Choose text color when the value is in critical status")
+                defaultColor: "#da4453"
             }
         }
     }

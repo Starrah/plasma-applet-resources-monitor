@@ -19,6 +19,8 @@ Item {
     readonly property alias sensorsModel: sensorsModel
     property var sensors: []
     property var uplimits: [100, 100]
+    property var thresholds: [undefined, undefined]
+    property var textColors: [theme.textColor, theme.textColor]
 
     // Aliases
     readonly property alias textContainer: textContainer
@@ -36,7 +38,10 @@ Item {
     // Graph properties
     readonly property int historyAmount: plasmoid.configuration.historyAmount
     readonly property int interval: plasmoid.configuration.updateInterval * 1000
+    readonly property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : "#f6cd00"
+    readonly property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : "#da4453"
     property var colors: [theme.highlightColor, theme.textColor]
+    property var thresholdColors: [warningColor, criticalColor]
 
     // Text properties
     property bool secondLabelWhenZero: true
@@ -148,20 +153,29 @@ Item {
 
         // Update label
         if (index === 0) { // is first line
+            firstLineLabel.visible = true
+            firstLineLabel.color = textColors[0]
             if (typeof value === 'undefined') {
                 firstLineLabel.text = '...'
-                firstLineLabel.visible = true
             } else {
                 firstLineLabel.text = data.formattedValue
-                firstLineLabel.visible = true
+                if (thresholds[0]) {
+                    if (data.value >= thresholds[0][1]) firstLineLabel.color = thresholdColors[1]
+                    else if (data.value >= thresholds[0][0]) firstLineLabel.color = thresholdColors[0]
+                }
             }
         } else if (index === 1) { // is second line
+            secondLineLabel.visible = secondLabelWhenZero
+            secondLineLabel.color = textColors[1]
             if (typeof value === 'undefined') {
                 secondLineLabel.text = '...'
-                secondLineLabel.visible = secondLabelWhenZero
             } else {
                 secondLineLabel.text = data.formattedValue
-                secondLineLabel.visible = data.value !== 0 || secondLabelWhenZero
+                secondLineLabel.visible = secondLineLabel.visible || data.value !== 0
+                if (thresholds[1]) {
+                    if (data.value >= thresholds[1][1]) secondLineLabel.color = thresholdColors[1]
+                    else if (data.value >= thresholds[1][0]) secondLineLabel.color = thresholdColors[0]
+                }
             }
         }
     }
