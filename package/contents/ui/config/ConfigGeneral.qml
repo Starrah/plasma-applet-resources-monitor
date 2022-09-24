@@ -20,6 +20,7 @@ QtLayouts.ColumnLayout {
 
     property alias cfg_showCpuMonitor: showCpuMonitor.checked
     property alias cfg_showClock: showClock.checked
+    property alias cfg_showCpuTemperature: showCpuTemperature.checked
     property alias cfg_showRamMonitor: showRamMonitor.checked
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
@@ -118,6 +119,11 @@ QtLayouts.ColumnLayout {
                     QtControls.CheckBox {
                         id: showClock
                         text: i18n("Show CPU clock")
+                        enabled: showCpuMonitor.checked
+                    }
+                    QtControls.CheckBox {
+                        id: showCpuTemperature
+                        text: i18n("Show CPU temperature")
                         enabled: showCpuMonitor.checked
                     }
 

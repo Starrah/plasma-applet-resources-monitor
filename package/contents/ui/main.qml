@@ -38,6 +38,7 @@ Item {
 
     property bool showCpuMonitor: plasmoid.configuration.showCpuMonitor
     property bool showClock: plasmoid.configuration.showClock
+    property bool showCpuTemperature: plasmoid.configuration.showCpuTemperature
     property bool showRamMonitor: plasmoid.configuration.showRamMonitor
     property bool showMemoryInPercent: plasmoid.configuration.memoryInPercent
     property bool showSwapGraph: plasmoid.configuration.memorySwapGraph
@@ -89,6 +90,9 @@ Item {
         if (!showClock) {
             cpuGraph.secondLineLabel.visible = false
         }
+        if (!showCpuTemperature) {
+            cpuGraph.firstLineLeftLabel.visible = false
+        }
     }
 
     onShowMemoryInPercentChanged: {
@@ -129,8 +133,8 @@ Item {
         label: "CPU"
         labelColor: cpuColor
         secondLabel: showClock ? i18n("⏲ Clock") : ""
-        hasFirstLeftLabel: true
-        firstLeftLabel: "🌡️"
+        hasFirstLeftLabel: showCpuTemperature
+        firstLeftLabel: showCpuTemperature ? "🌡️" : ""
 
         yRange {
             from: 0
@@ -139,8 +143,10 @@ Item {
 
         // Display first core frequency
         onDataTick: {
-            if (canSeeValue(1)) {
+            if (canSeeValue(0) && showCpuTemperature) {
                 firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
+            }
+            if (canSeeValue(1)) {
                 secondLineLabel.text = cpuFrequencySensor.formattedValue
                 secondLineLabel.visible = true
             }
@@ -152,10 +158,11 @@ Item {
         }
         Sensors.Sensor {
             id: cpuTempSensor
+            enabled: showCpuTemperature
             sensorId: "cpu/cpu0/temperature"
         }
         onShowValueWhenMouseMove: {
-            firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
+            if (showCpuTemperature) firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
             secondLineLabel.text = cpuFrequencySensor.formattedValue
             secondLineLabel.visible = true
         }

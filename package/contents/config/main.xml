@@ -20,6 +20,9 @@
         <entry name="showClock" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="showCpuTemperature" type="Bool">
+            <default>true</default>
+        </entry>
 
         <entry name="showRamMonitor" type="Bool">
             <default>true</default>
