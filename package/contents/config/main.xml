@@ -35,7 +35,7 @@
         </entry>
 
         <entry name="showNetMonitor" type="Bool">
-            <default>false</default>
+            <default>true</default>
         </entry>
         <entry name="networkUnit" type="String">
             <default>kibibyte</default>
