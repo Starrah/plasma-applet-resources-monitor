@@ -96,20 +96,20 @@ Item {
     }
 
     onShowMemoryInPercentChanged: {
-        if (ramGraph.maxMemory == 0) {
+        if (!(ramGraph.maxMemory[0] >= 0 && ramGraph.maxMemory[1] >= 0)) {
             return
         }
 
         if (showMemoryInPercent) {
-            ramGraph.yRange.to = 100
+            ramGraph.uplimits = [100,100]
         } else {
-            ramGraph.yRange.to = ramGraph.maxMemory
+            ramGraph.uplimits = ramGraph.maxMemory
         }
         ramGraph.updateSensors()
     }
 
     onShowSwapGraphChanged: {
-        if (ramGraph.maxMemory != 0) {
+        if (ramGraph.maxMemory[0] >= 0 && ramGraph.maxMemory[1] >= 0) {
             ramGraph.updateSensors()
         }
     }
@@ -176,16 +176,10 @@ Item {
         }
     }
 
-    RMComponents.SensorGraph {
+    RMComponents.TwoSensorGraph {
         id: ramGraph
         colors: [ramColor, swapColor]
         secondLabelWhenZero: false
-        // TODO: stack the graph values for real fill percent ?
-
-        yRange {
-            from: 0
-            to: 100
-        }
 
         visible: showRamMonitor
         width: itemWidth
@@ -201,28 +195,21 @@ Item {
         secondLabelColor: swapColor
 
         // Get max y of graph
-        property var maxMemory: 0
+        property var maxMemory: [-1, -1]
         Sensors.SensorDataModel {
             id: totalSensorsModel
             sensors: ["memory/physical/total", "memory/swap/total"]
             enabled: true
 
-            property var totalMemory: -1
-            property var totalSwap: -1
             onDataChanged: {
-                if(topLeft.column === 0) {
-                    totalMemory = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
-                }
-                else if (topLeft.column === 1) {
-                    totalSwap = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
-                }
-
-                if ((!isNaN(totalMemory) && totalMemory !== -1) && (!isNaN(totalSwap) && totalSwap !== -1)) {
+                var value = parseInt(data(topLeft, Sensors.SensorDataModel.Value))
+                if (!isNaN(value) && value !== -1) ramGraph.maxMemory[topLeft.column] = value
+                if (ramGraph.maxMemory[0] >= 0 && ramGraph.maxMemory[1] >= 0) {
                     enabled = false
-
-                    ramGraph.maxMemory = Math.max(totalMemory, totalSwap)
                     if (!showMemoryInPercent) {
-                        ramGraph.yRange.to = ramGraph.maxMemory
+                        ramGraph.uplimits = ramGraph.maxMemory
+                    } else {
+                        ramGraph.uplimits = [100, 100]
                     }
                     ramGraph.updateSensors()
                 }
