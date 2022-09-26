@@ -21,6 +21,7 @@ Item {
     property var uplimits: [100, 100]
     property var thresholds: [undefined, undefined]
     property var textColors: [theme.textColor, theme.textColor]
+    property var showPercentage: [false, false]
 
     // Aliases
     readonly property alias textContainer: textContainer
@@ -159,6 +160,9 @@ Item {
                 firstLineLabel.text = '...'
             } else {
                 firstLineLabel.text = data.formattedValue
+                if (showPercentage[0]) {
+                    firstLineLabel.text = (data.value / data.uplimits[0]) + " %"
+                }
                 if (thresholds[0]) {
                     if (data.value >= thresholds[0][1]) firstLineLabel.color = thresholdColors[1]
                     else if (data.value >= thresholds[0][0]) firstLineLabel.color = thresholdColors[0]
@@ -171,6 +175,9 @@ Item {
                 secondLineLabel.text = '...'
             } else {
                 secondLineLabel.text = data.formattedValue
+                if (showPercentage[1]) {
+                    firstLineLabel.text = (data.value / data.uplimits[1]) + " %"
+                }
                 secondLineLabel.visible = secondLineLabel.visible || data.value !== 0
                 if (thresholds[1]) {
                     if (data.value >= thresholds[1][1]) secondLineLabel.color = thresholdColors[1]
@@ -182,9 +189,6 @@ Item {
 
     function _dataTick() {
         var sensorsLength = sensorsModel.model.length
-
-        // Emit signal
-        chart.dataTick()
 
         // Set default text when doesn't have sensors
         if (sensorsLength === 0) {
@@ -203,6 +207,9 @@ Item {
         // Update labels
         if (canSeeValue(0)) _updateData(0, chart.sensorData1)
         if (canSeeValue(1)) _updateData(1, chart.sensorData2)
+
+        // Emit signal
+        chart.dataTick()
     }
 
     // Utils functions

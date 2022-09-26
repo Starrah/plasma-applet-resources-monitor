@@ -17,10 +17,14 @@ QtLayouts.ColumnLayout {
     readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property double cfg_networkReceivingTotal: 0.0
     property double cfg_networkSendingTotal: 0.0
+    property alias cfg_gpuMemoryTotalCorrectionEnabled: gpuMemoryTotalCorrectionEnabled.checked
+    property alias cfg_gpuMemoryTotalCorrectionValue: gpuMemoryTotalCorrectionValue.value
     property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.value
     property alias cfg_thresholdCriticalCpuTemp: thresholdCriticalCpuTemp.value
     property alias cfg_thresholdWarningMemory: thresholdWarningMemory.value
     property alias cfg_thresholdCriticalMemory: thresholdCriticalMemory.value
+    property alias cfg_thresholdWarningGpuTemp: thresholdWarningGpuTemp.value
+    property alias cfg_thresholdCriticalGpuTemp: thresholdCriticalGpuTemp.value
 
     readonly property var networkSpeedOptions: [
         {
@@ -66,6 +70,11 @@ QtLayouts.ColumnLayout {
             tab: networkPage
             iconSource: "preferences-system-network"
             text: i18n("Network")
+        }
+        PlasmaComponents.TabButton {
+            tab: gpuPage
+            iconSource: "applications-graphics"
+            text: i18n("GPU")
         }
         PlasmaComponents.TabButton {
             tab: thresholdPage
@@ -248,9 +257,29 @@ QtLayouts.ColumnLayout {
         }
 
         Kirigami.FormLayout {
-            id: thresholdPage
+            id: gpuPage
             wideMode: true
 
+            QtControls.CheckBox {
+                id: gpuMemoryTotalCorrectionEnabled
+                text: i18n("GPU total VRAM correction")
+            }
+
+            RMControls.SpinBox {
+                id: gpuMemoryTotalCorrectionValue
+                Kirigami.FormData.label: i18n("GPU total VRAM")
+                QtLayouts.Layout.fillWidth: true
+                enabled: gpuMemoryTotalCorrectionEnabled.enabled
+
+                textFromValue: function(value, locale) {
+                    return value + " MiB"
+                }
+            }
+        }
+
+        Kirigami.FormLayout {
+            id: thresholdPage
+            wideMode: true
 
             QtLayouts.GridLayout {
                 QtLayouts.Layout.fillWidth: true
@@ -318,6 +347,33 @@ QtLayouts.ColumnLayout {
 
                     textFromValue: function(value, locale) {
                         return value + " %"
+                    }
+                }
+            }
+
+            QtLayouts.GridLayout {
+                Kirigami.FormData.label: i18n("GPU Temperature:")
+                QtLayouts.Layout.fillWidth: true
+                columns: 2
+                rowSpacing: Kirigami.Units.smallSpacing
+                columnSpacing: Kirigami.Units.largeSpacing
+
+                RMControls.SpinBox {
+                    id: thresholdWarningGpuTemp
+                    Kirigami.FormData.label: i18n("Warning")
+                    QtLayouts.Layout.fillWidth: true
+
+                    textFromValue: function(value, locale) {
+                        return value + " °C"
+                    }
+                }
+                RMControls.SpinBox {
+                    id: thresholdCriticalGpuTemp
+                    Kirigami.FormData.label: i18n("Critical")
+                    QtLayouts.Layout.fillWidth: true
+
+                    textFromValue: function(value, locale) {
+                        return value + " °C"
                     }
                 }
             }

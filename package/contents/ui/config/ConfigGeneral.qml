@@ -25,6 +25,10 @@ QtLayouts.ColumnLayout {
     property alias cfg_memoryInPercent: memoryInPercent.checked
     property alias cfg_memorySwapGraph: memorySwapGraph.checked
     property bool cfg_showNetMonitor: plasmoid.configuration.showNetMonitor.checked
+    property alias cfg_showGpuMonitor: showGpuMonitor.checked
+    property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
+    property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
+    property alias cfg_showGpuTemperature: showGpuTemperature.checked
 
     // Apps model
     RMComponents.AppsDetector {
@@ -140,6 +144,28 @@ QtLayouts.ColumnLayout {
                     QtControls.CheckBox {
                         id: memorySwapGraph
                         text: i18n("Display memory swap graph")
+                        enabled: showRamMonitor.checked
+                    }
+
+                    // GPU
+                    QtControls.CheckBox {
+                        id: showGpuMonitor
+                        text: i18n("Show GPU monitor")
+                    }
+                    QtControls.CheckBox {
+                        id: gpuMemoryGraph
+                        text: i18n("Display GPU memory graph")
+                        enabled: showGpuMonitor.checked
+                    }
+                    QtControls.CheckBox {
+                        id: gpuMemoryInPercent
+                        text: i18n("GPU memory in percentage")
+                        enabled: gpuMemoryGraph.checked
+                    }
+                    QtControls.CheckBox {
+                        id: showGpuTemperature
+                        text: i18n("Show GPU temperature")
+                        enabled: showGpuMonitor.checked
                     }
                 }
 

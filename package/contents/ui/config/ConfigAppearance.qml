@@ -35,6 +35,10 @@ QtLayouts.ColumnLayout {
     property alias cfg_netDownColor: netDownColor.value
     property alias cfg_customNetUpColor: netUpColor.checked
     property alias cfg_netUpColor: netUpColor.value
+    property alias cfg_customGpuColor: gpuColor.checked
+    property alias cfg_gpuColor: gpuColor.value
+    property alias cfg_customGpuMemoryColor: gpuMemoryColor.checked
+    property alias cfg_gpuMemoryColor: gpuMemoryColor.value
     property alias cfg_customWarningColor: warningColor.checked
     property alias cfg_warningColor: warningColor.value
     property alias cfg_customCriticalColor: criticalColor.checked
@@ -252,6 +256,20 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("Network sending color:")
 
                 dialogTitle: i18n("Choose network sending graph color")
+                defaultColor: negativeColor
+            }
+            RMControls.ColorSelector {
+                id: gpuColor
+                Kirigami.FormData.label: i18n("GPU color:")
+
+                dialogTitle: i18n("Choose GPU usage graph color")
+                defaultColor: primaryColor
+            }
+            RMControls.ColorSelector {
+                id: gpuMemoryColor
+                Kirigami.FormData.label: i18n("GPU memory color:")
+
+                dialogTitle: i18n("Choose GPU memory graph color")
                 defaultColor: negativeColor
             }
 

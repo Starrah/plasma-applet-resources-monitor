@@ -40,6 +40,19 @@
         <entry name="networkUnit" type="String">
             <default>kibibyte</default>
         </entry>
+
+        <entry name="showGpuMonitor" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="gpuMemoryInPercent" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="gpuMemoryGraph" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="showGpuTemperature" type="Bool">
+            <default>true</default>
+        </entry>
     </group>
 
     <group name="Data">
@@ -50,6 +63,11 @@
         </entry>
         <entry name="networkSendingTotal" type="Double">
             <default>100000.0</default>
+        </entry>
+        <entry name="gpuMemoryTotalCorrectionEnabled" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="gpuMemoryTotalCorrectionValue" type="Double">
         </entry>
         <entry name="thresholdWarningCpuTemp" type="Int">
             <default>85</default>
@@ -62,6 +80,12 @@
         </entry>
         <entry name="thresholdCriticalMemory" type="Int">
             <default>90</default>
+        </entry>
+        <entry name="thresholdWarningGpuTemp" type="Int">
+            <default>75</default>
+        </entry>
+        <entry name="thresholdCriticalGpuTemp" type="Int">
+            <default>85</default>
         </entry>
     </group>
 
@@ -138,6 +162,16 @@
             <default>false</default>
         </entry>
         <entry name="netUpColor" type="Color">
+        </entry>
+        <entry name="customGpuColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="gpuColor" type="Color">
+        </entry>
+        <entry name="customGpuMemoryColor" type="Bool">
+            <default>false</default>
+        </entry>
+        <entry name="gpuMemoryColor" type="Color">
         </entry>
 
         <entry name="customWarningColor" type="Bool">

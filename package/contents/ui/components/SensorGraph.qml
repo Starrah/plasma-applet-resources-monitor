@@ -92,10 +92,7 @@ RMComponents.BaseSensorGraph {
 
                 // Call data tick
                 var now = Date.now()
-                if (now - lastRun >= chart.interval) {
-                    lastRun = now
-                    chart.dataTick()
-                }
+                chart.dataTick()
             }
 
             property var connection: Connections {
