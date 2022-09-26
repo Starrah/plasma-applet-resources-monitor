@@ -39,6 +39,10 @@ QtLayouts.ColumnLayout {
     property alias cfg_gpuColor: gpuColor.value
     property alias cfg_customGpuMemoryColor: gpuMemoryColor.checked
     property alias cfg_gpuMemoryColor: gpuMemoryColor.value
+    property alias cfg_customDiskReadColor: diskReadColor.checked
+    property alias cfg_diskReadColor: diskReadColor.value
+    property alias cfg_customDiskWriteColor: diskWriteColor.checked
+    property alias cfg_diskWriteColor: diskWriteColor.value
     property alias cfg_customWarningColor: warningColor.checked
     property alias cfg_warningColor: warningColor.value
     property alias cfg_customCriticalColor: criticalColor.checked
@@ -270,6 +274,20 @@ QtLayouts.ColumnLayout {
                 Kirigami.FormData.label: i18n("GPU memory color:")
 
                 dialogTitle: i18n("Choose GPU memory graph color")
+                defaultColor: negativeColor
+            }
+            RMControls.ColorSelector {
+                id: diskReadColor
+                Kirigami.FormData.label: i18n("Disk read color:")
+
+                dialogTitle: i18n("Choose disk read graph color")
+                defaultColor: primaryColor
+            }
+            RMControls.ColorSelector {
+                id: diskWriteColor
+                Kirigami.FormData.label: i18n("Disk write color:")
+
+                dialogTitle: i18n("Choose disk write graph color")
                 defaultColor: negativeColor
             }
 

@@ -29,6 +29,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_gpuMemoryInPercent: gpuMemoryInPercent.checked
     property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
+    property alias cfg_showDiskMonitor: showDiskMonitor.checked
 
     // Apps model
     RMComponents.AppsDetector {
@@ -166,6 +167,12 @@ QtLayouts.ColumnLayout {
                         id: showGpuTemperature
                         text: i18n("Show GPU temperature")
                         enabled: showGpuMonitor.checked
+                    }
+
+                    // Disk
+                    QtControls.CheckBox {
+                        id: showDiskMonitor
+                        text: i18n("Show disk monitor")
                     }
                 }
 

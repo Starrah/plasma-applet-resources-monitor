@@ -48,9 +48,12 @@ Item {
     property bool gpuMemoryInPercent: plasmoid.configuration.gpuMemoryInPercent
     property bool gpuMemoryGraph: plasmoid.configuration.gpuMemoryGraph
     property bool showGpuTemperature: plasmoid.configuration.showGpuTemperature
+    property bool showDiskMonitor: plasmoid.configuration.showDiskMonitor
 
     property bool gpuMemoryTotalCorrectionEnabled: plasmoid.configuration.gpuMemoryTotalCorrectionEnabled
     property double gpuMemoryTotalCorrectionValue: plasmoid.configuration.gpuMemoryTotalCorrectionValue
+    property double diskReadTotal: plasmoid.configuration.diskReadTotal
+    property double diskWriteTotal: plasmoid.configuration.diskWriteTotal
 
     // Colors settings properties
     property double fontScale: (plasmoid.configuration.fontScale / 100)
@@ -62,6 +65,8 @@ Item {
     property color netUpColor: plasmoid.configuration.customNetUpColor ? plasmoid.configuration.netUpColor : negativeColor
     property color gpuColor: plasmoid.configuration.customGpuColor ? plasmoid.configuration.gpuColor : primaryColor
     property color gpuMemoryColor: plasmoid.configuration.customGpuMemoryColor ? plasmoid.configuration.gpuMemoryColor : negativeColor
+    property color diskReadColor: plasmoid.configuration.customDiskReadColor ? plasmoid.configuration.diskReadColor : primaryColor
+    property color diskWriteColor: plasmoid.configuration.customDiskWriteColor ? plasmoid.configuration.diskWriteColor : negativeColor
     readonly property color temperatureColor: plasmoid.configuration.customTemperatureColor ? plasmoid.configuration.temperatureColor : primaryColor
     readonly property color warningColor: plasmoid.configuration.customWarningColor ? plasmoid.configuration.warningColor : "#f6cd00"
     readonly property color criticalColor: plasmoid.configuration.customCriticalColor ? plasmoid.configuration.criticalColor : "#da4453"
@@ -74,7 +79,7 @@ Item {
     property int thresholdCriticalGpuTemp: plasmoid.configuration.thresholdCriticalGpuTemp
 
     // Component properties
-    property int containerCount: (showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0) + (showGpuMonitor?1:0)
+    property int containerCount: (showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0) + (showGpuMonitor?1:0) + (showDiskMonitor?1:0)
     property int itemMargin: plasmoid.configuration.graphMargin
     property double parentWidth: parent === null ? 0 : parent.width
     property double parentHeight: parent === null ? 0 : parent.height
@@ -100,7 +105,7 @@ Item {
 
     // Bind settigns change
     onFontPixelSizeChanged: {
-        for (var monitor of [cpuGraph, ramGraph, netGraph, gpuGraph]) {
+        for (var monitor of [cpuGraph, ramGraph, netGraph, gpuGraph, diskGraph]) {
             monitor.firstLineLabel.font.pixelSize = fontPixelSize
             monitor.secondLineLabel.font.pixelSize = fontPixelSize
             if (monitor.firstLineLeftLabel) monitor.firstLineLeftLabel.font.pixelSize = fontPixelSize
@@ -159,6 +164,14 @@ Item {
         if (gpuGraph.maxGpuValue >= 0) {
             gpuGraph.updateSensors()
         }
+    }
+
+    onDiskReadTotalChanged: {
+        diskGraph.uplimits = [diskReadTotal * (1024 * 1024), diskWriteTotal * (1024 * 1024)]
+    }
+
+    onDiskWriteTotalChanged: {
+        diskGraph.uplimits = [diskReadTotal * (1024 * 1024), diskWriteTotal * (1024 * 1024)]
     }
 
     function keepInteger(str) {
@@ -388,6 +401,28 @@ Item {
                 secondLineLabel.visible = true
             }
         }
+    }
+
+    RMComponents.TwoSensorGraph {
+        id: diskGraph
+        colors: [diskReadColor, diskWriteColor]
+        secondLabelWhenZero: true
+
+        visible: showDiskMonitor
+        width: itemWidth
+        height: itemHeight
+        anchors.left: parent.left
+        anchors.leftMargin: !verticalLayout ? ((showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0) + (showGpuMonitor?1:0)) * (itemWidth + itemMargin) : 0
+        anchors.top: parent.top
+        anchors.topMargin: verticalLayout ? ((showCpuMonitor?1:0) + (showRamMonitor?1:0) + (showNetMonitor?1:0) + (showGpuMonitor?1:0)) * (itemWidth + itemMargin) : 0
+
+        label: "Read"
+        labelColor: diskReadColor
+        secondLabel: "Write"
+        secondLabelColor: diskWriteColor
+
+        uplimits: [diskReadTotal * (1024 * 1024), diskWriteTotal * (1024 * 1024)]
+        sensors: ["disk/all/read", "disk/all/write"]
     }
 
     // Click action

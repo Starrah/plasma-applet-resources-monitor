@@ -17,6 +17,8 @@ QtLayouts.ColumnLayout {
     readonly property var networkDialect: Functions.getNetworkDialectInfo(plasmoid.configuration.networkUnit)
     property double cfg_networkReceivingTotal: 0.0
     property double cfg_networkSendingTotal: 0.0
+    property double cfg_diskReadTotal: 0.0
+    property double cfg_diskWriteTotal: 0.0
     property alias cfg_gpuMemoryTotalCorrectionEnabled: gpuMemoryTotalCorrectionEnabled.checked
     property alias cfg_gpuMemoryTotalCorrectionValue: gpuMemoryTotalCorrectionValue.value
     property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.value
@@ -57,6 +59,37 @@ QtLayouts.ColumnLayout {
         }
     ]
 
+    readonly property var diskSpeedOptions: [
+        {
+            label: i18n("Custom"),
+            value: -1,
+        }, {
+            label: "10 MiB/s",
+            value: 10,
+        }, {
+            label: "100 MiB/s",
+            value: 100,
+        }, {
+            label: "200 MiB/s",
+            value: 200,
+        }, {
+            label: "500 MiB/s",
+            value: 500,
+        }, {
+            label: "1000 MiB/s",
+            value: 1000,
+        }, {
+            label: "2000 MiB/s",
+            value: 2000,
+        }, {
+            label: "5000 MiB/s",
+            value: 5000,
+        }, {
+            label: "10000 MiB/s",
+            value: 10000,
+        }
+    ]
+
     // Detect network interfaces
     RMComponents.NetworkInterfaceDetector {
         id: networkInterfaces
@@ -75,6 +108,11 @@ QtLayouts.ColumnLayout {
             tab: gpuPage
             iconSource: "applications-graphics"
             text: i18n("GPU")
+        }
+        PlasmaComponents.TabButton {
+            tab: diskPage
+            iconSource: "drive-harddisk"
+            text: i18n("Disk")
         }
         PlasmaComponents.TabButton {
             tab: thresholdPage
@@ -273,6 +311,129 @@ QtLayouts.ColumnLayout {
 
                 textFromValue: function(value, locale) {
                     return value + " MiB"
+                }
+            }
+        }
+
+        // Disk
+        Kirigami.FormLayout {
+            id: diskPage
+            wideMode: true
+
+            PlasmaComponents.Label {
+                text: i18n("Maximum transfer speed")
+                font.pointSize: PlasmaCore.Theme.defaultFont.pointSize * 1.2
+            }
+
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
+            }
+
+            // Receiving speed
+            QtControls.ComboBox {
+                id: diskReadTotal
+                Kirigami.FormData.label: i18n("Read:")
+                textRole: "label"
+                model: diskSpeedOptions
+
+                onCurrentIndexChanged: {
+                    var current = model[currentIndex]
+                    if (current && current.value !== -1) {
+                        customDiskReadTotal.valueReal = current.value
+                    }
+                }
+
+                Component.onCompleted: {
+                    for (var i = 0; i < model.length; i++) {
+                        if (model[i]["value"] === plasmoid.configuration.diskReadTotal) {
+                            diskReadTotal.currentIndex = i;
+                            return
+                        }
+                    }
+
+                    diskReadTotal.currentIndex = 0 // Custom
+                }
+            }
+            RMControls.SpinBox {
+                id: customDiskReadTotal
+                Kirigami.FormData.label: i18n("Custom value:")
+                QtLayouts.Layout.fillWidth: true
+                decimals: 3
+                stepSize: 1
+                minimumValue: 0.001
+                visible: diskReadTotal.currentIndex === 0
+
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + " MiB/s"
+                }
+
+                onValueChanged: {
+                    var newValue = valueReal
+                    if (cfg_diskReadTotal !== newValue)  {
+                        cfg_diskReadTotal = newValue
+                        dataPage.configurationChanged()
+                    }
+                }
+                Component.onCompleted: {
+                    valueReal = parseFloat(plasmoid.configuration.diskReadTotal)
+                }
+            }
+
+            // Separator
+            Rectangle {
+                height: Kirigami.Units.largeSpacing
+                color: "transparent"
+            }
+
+            // Sending speed
+            QtControls.ComboBox {
+                id: diskWriteTotal
+                Kirigami.FormData.label: i18n("Write:")
+                textRole: "label"
+                model: diskSpeedOptions
+
+                onCurrentIndexChanged: {
+                    var current = model[currentIndex]
+                    if (current && current.value !== -1) {
+                        customDiskWriteTotal.valueReal = current.value
+                    }
+                }
+
+                Component.onCompleted: {
+                    for (var i = 0; i < model.length; i++) {
+                        if (model[i]["value"] === plasmoid.configuration.diskWriteTotal) {
+                            diskWriteTotal.currentIndex = i;
+                            return
+                        }
+                    }
+
+                    diskWriteTotal.currentIndex = 0 // Custom
+                }
+            }
+            RMControls.SpinBox {
+                id: customdiskWriteTotal
+                Kirigami.FormData.label: i18n("Custom value:")
+                QtLayouts.Layout.fillWidth: true
+                decimals: 3
+                stepSize: 1
+                minimumValue: 0.001
+                visible: diskWriteTotal.currentIndex === 0
+
+                textFromValue: function(value, locale) {
+                    return valueToText(value, locale) + " MiB/s"
+                }
+
+                 onValueChanged: {
+                    var newValue = valueReal
+                    if (cfg_diskWriteTotal !== newValue)  {
+                        cfg_diskWriteTotal = newValue
+                        dataPage.configurationChanged()
+                    }
+                }
+                Component.onCompleted: {
+                    valueReal = parseFloat(plasmoid.configuration.diskWriteTotal)
                 }
             }
         }
