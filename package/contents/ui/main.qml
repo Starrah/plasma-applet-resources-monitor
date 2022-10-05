@@ -341,7 +341,7 @@ Item {
         property var maxGpuValue: -1
         Sensors.SensorDataModel {
             id: maxGpuValueQueryModel
-            sensors: ["gpu/all/totalVram"]
+            sensors: ["gpu/gpu0/totalVram"]
             enabled: true
 
             onDataChanged: {
@@ -360,7 +360,7 @@ Item {
         }
 
         function updateSensors() {
-            sensors = ["gpu/all/usage", "gpu/all/usedVram"]
+            sensors = ["gpu/all/usage", "gpu/gpu0/usedVram"]
             gpuGraph.showPercentage = [false, gpuMemoryInPercent]
         }
         function getGpuTempColor(value) {
