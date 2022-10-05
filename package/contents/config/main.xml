@@ -73,11 +73,6 @@
         <entry name="diskWriteTotal" type="Double">
             <default>200</default>
         </entry>
-        <entry name="gpuMemoryTotalCorrectionEnabled" type="Bool">
-            <default>false</default>
-        </entry>
-        <entry name="gpuMemoryTotalCorrectionValue" type="Double">
-        </entry>
         <entry name="thresholdWarningCpuTemp" type="Int">
             <default>85</default>
         </entry>

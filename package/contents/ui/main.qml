@@ -50,8 +50,6 @@ Item {
     property bool showGpuTemperature: plasmoid.configuration.showGpuTemperature
     property bool showDiskMonitor: plasmoid.configuration.showDiskMonitor
 
-    property bool gpuMemoryTotalCorrectionEnabled: plasmoid.configuration.gpuMemoryTotalCorrectionEnabled
-    property double gpuMemoryTotalCorrectionValue: plasmoid.configuration.gpuMemoryTotalCorrectionValue
     property double diskReadTotal: plasmoid.configuration.diskReadTotal
     property double diskWriteTotal: plasmoid.configuration.diskWriteTotal
 
@@ -382,23 +380,11 @@ Item {
                 firstLineLeftLabel.text = keepInteger(gpuTempSensor.formattedValue)
                 firstLineLeftLabel.color = getGpuTempColor(gpuTempSensor.value)
             }
-            if (canSeeValue(1) && gpuMemoryTotalCorrectionEnabled && maxGpuValue > 0) {
-                var correctionValue = gpuMemoryTotalCorrectionValue * (1024 * 1024)
-                var realValue = gpuGraph.sensorData2.value * (correctionValue / maxGpuValue)
-                secondLineLabel.text = Functions.formatByteValue(realValue, _the_dialect)
-                secondLineLabel.visible = true
-            }
         }
         onShowValueWhenMouseMove: {
             if (showGpuTemperature) {
                 firstLineLeftLabel.text = keepInteger(gpuTempSensor.formattedValue)
                 firstLineLeftLabel.color = getGpuTempColor(gpuTempSensor.value)
-            }
-            if (gpuMemoryTotalCorrectionEnabled && maxGpuValue > 0) {
-                var correctionValue = gpuMemoryTotalCorrectionValue * (1024 * 1024)
-                var realValue = gpuGraph.sensorData2.value * (correctionValue / maxGpuValue)
-                secondLineLabel.text = Functions.formatByteValue(realValue, _the_dialect)
-                secondLineLabel.visible = true
             }
         }
     }

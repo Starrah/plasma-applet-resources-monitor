@@ -19,8 +19,6 @@ QtLayouts.ColumnLayout {
     property double cfg_networkSendingTotal: 0.0
     property double cfg_diskReadTotal: 0.0
     property double cfg_diskWriteTotal: 0.0
-    property alias cfg_gpuMemoryTotalCorrectionEnabled: gpuMemoryTotalCorrectionEnabled.checked
-    property alias cfg_gpuMemoryTotalCorrectionValue: gpuMemoryTotalCorrectionValue.value
     property alias cfg_thresholdWarningCpuTemp: thresholdWarningCpuTemp.value
     property alias cfg_thresholdCriticalCpuTemp: thresholdCriticalCpuTemp.value
     property alias cfg_thresholdWarningMemory: thresholdWarningMemory.value
@@ -103,11 +101,6 @@ QtLayouts.ColumnLayout {
             tab: networkPage
             iconSource: "preferences-system-network"
             text: i18n("Network")
-        }
-        PlasmaComponents.TabButton {
-            tab: gpuPage
-            iconSource: "applications-graphics"
-            text: i18n("GPU")
         }
         PlasmaComponents.TabButton {
             tab: diskPage
@@ -290,27 +283,6 @@ QtLayouts.ColumnLayout {
                 }
                 Component.onCompleted: {
                     valueReal = parseFloat(plasmoid.configuration.networkSendingTotal) / 1000
-                }
-            }
-        }
-
-        Kirigami.FormLayout {
-            id: gpuPage
-            wideMode: true
-
-            QtControls.CheckBox {
-                id: gpuMemoryTotalCorrectionEnabled
-                text: i18n("GPU total VRAM correction")
-            }
-
-            RMControls.SpinBox {
-                id: gpuMemoryTotalCorrectionValue
-                Kirigami.FormData.label: i18n("GPU total VRAM")
-                QtLayouts.Layout.fillWidth: true
-                enabled: gpuMemoryTotalCorrectionEnabled.enabled
-
-                textFromValue: function(value, locale) {
-                    return value + " MiB"
                 }
             }
         }
