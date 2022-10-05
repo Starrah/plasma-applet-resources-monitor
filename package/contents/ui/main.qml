@@ -175,7 +175,7 @@ Item {
     function keepInteger(str) {
         var r = str.match(/^([.\d]*)(.*)/)
         if (!(r && r[1])) return ""
-        return Number(r[1]) + r[2]
+        return Math.round(Number(r[1])) + r[2]
     }
 
     // Graphs
