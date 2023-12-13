@@ -212,14 +212,14 @@ Item {
                 firstLineLeftLabel.color = getCpuTempColor(cpuTempSensor.value)
             }
             if (canSeeValue(1)) {
-                secondLineLabel.text = cpuFrequencySensor.formattedValue
+                secondLineLabel.text = cpuFrequencySensor.getFormattedValue()
                 secondLineLabel.visible = true
             }
         }
-        Sensors.Sensor {
+        RMComponents.CpuFrequency {
             id: cpuFrequencySensor
             enabled: showClock
-            sensorId: "cpu/cpu0/frequency"
+            agregator: "average"
         }
         Sensors.Sensor {
             id: cpuTempSensor

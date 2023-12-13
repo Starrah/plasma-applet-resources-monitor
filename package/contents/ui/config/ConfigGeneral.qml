@@ -30,6 +30,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
     property alias cfg_showDiskMonitor: showDiskMonitor.checked
+    property alias cfg_cpuCoreIgnoreCount: cpuCoreIgnoreCount.value
 
     // Apps model
     RMComponents.AppsDetector {
@@ -229,6 +230,15 @@ QtLayouts.ColumnLayout {
                             }
                         }
                     }
+                }
+
+                // Ignore the last N CPU cores. Defaults 0.
+                // Used for excluding Intel E-cores when calculating CPU frequency,
+                // because they have different freq with P-cores.
+                RMControls.SpinBox {
+                    id: cpuCoreIgnoreCount
+                    Kirigami.FormData.label: i18n("#E-cores (excluded in freq)")
+                    QtLayouts.Layout.fillWidth: true
                 }
             }
 
