@@ -54,7 +54,7 @@ RMComponents.BaseSensorGraph {
             if (typeof value === 'undefined') {
                 firstLineLabel.text = '...'
             } else {
-                firstLineLabel.text = value
+                firstLineLabel.text = keepInteger(value)
             }
         } else if (index === 1) { // is second line
             if (typeof value === 'undefined') {

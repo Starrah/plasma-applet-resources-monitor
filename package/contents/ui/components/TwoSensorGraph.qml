@@ -160,6 +160,9 @@ Item {
                 firstLineLabel.text = '...'
             } else {
                 firstLineLabel.text = data.formattedValue
+                if (chart.label == "GPU") {
+                    firstLineLabel.text = keepInteger(data.formattedValue)
+                }
                 if (showPercentage[0]) {
                     firstLineLabel.text = (data.value / data.uplimits[0]) + " %"
                 }
