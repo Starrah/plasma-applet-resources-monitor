@@ -360,7 +360,7 @@ Item {
         }
 
         function updateSensors() {
-            sensors = ["gpu/all/usage", "gpu/gpu0/usedVram"]
+            sensors = ["gpu/gpu0/usage", "gpu/gpu0/usedVram"]
             gpuGraph.showPercentage = [false, gpuMemoryInPercent]
         }
         function getGpuTempColor(value) {
