@@ -77,10 +77,10 @@
             <default>200</default>
         </entry>
         <entry name="thresholdWarningCpuTemp" type="Int">
-            <default>85</default>
+            <default>80</default>
         </entry>
         <entry name="thresholdCriticalCpuTemp" type="Int">
-            <default>105</default>
+            <default>95</default>
         </entry>
         <entry name="thresholdWarningMemory" type="Int">
             <default>70</default>
