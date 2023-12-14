@@ -231,7 +231,7 @@ Item {
                 firstLineLeftLabel.text = keepInteger(cpuTempSensor.formattedValue)
                 firstLineLeftLabel.color = getCpuTempColor(cpuTempSensor.value)
             }
-            secondLineLabel.text = cpuFrequencySensor.formattedValue
+            secondLineLabel.text = cpuFrequencySensor.getFormattedValue()
             secondLineLabel.visible = true
         }
 
