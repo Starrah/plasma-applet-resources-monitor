@@ -1,6 +1,6 @@
 {
   "name": "plasma-applet-resources-monitor",
-  "version": "2.8.2-starrah",
+  "version": "2.8.3-starrah",
   "description": "Plasmoid for monitoring CPU, memory and network traffic. This is an fork from \"Resources Monitor\" by Kotelnik",
   "homepage": "https://github.com/orblazer/plasma-applet-resources-monitor",
   "funding": "https://www.paypal.me/orblazer",

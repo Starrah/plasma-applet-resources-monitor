@@ -53,13 +53,6 @@ Sensors.SensorDataModel {
             }
             _initialized = true;
 
-            // Do nothing if all frequency is already exist
-            if (hasIndex(0, 1)) {
-                root.enabled = false;
-                root.ready();
-                return;
-            }
-
             // Fill sensors with all cores
             _coreCount = data(index(0, 0));
             const sensors = [];
