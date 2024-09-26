@@ -30,6 +30,7 @@ QtLayouts.ColumnLayout {
     property alias cfg_gpuMemoryGraph: gpuMemoryGraph.checked
     property alias cfg_showGpuTemperature: showGpuTemperature.checked
     property alias cfg_showDiskMonitor: showDiskMonitor.checked
+    property alias cfg_showDiskDirty: showDiskDirty.checked
     property alias cfg_cpuCoreIgnoreCount: cpuCoreIgnoreCount.value
 
     // Apps model
@@ -174,6 +175,11 @@ QtLayouts.ColumnLayout {
                     QtControls.CheckBox {
                         id: showDiskMonitor
                         text: i18n("Show disk monitor")
+                    }
+                    QtControls.CheckBox {
+                        id: showDiskDirty
+                        text: i18n("Show kernel page cache \"Dirty\" amount")
+                        enabled: showDiskMonitor.checked
                     }
                 }
 

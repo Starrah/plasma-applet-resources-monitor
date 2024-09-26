@@ -59,6 +59,9 @@
         <entry name="showDiskMonitor" type="Bool">
             <default>true</default>
         </entry>
+        <entry name="showDiskDirty" type="Bool">
+            <default>true</default>
+        </entry>
     </group>
 
     <group name="Data">

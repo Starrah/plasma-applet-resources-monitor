@@ -49,6 +49,7 @@ Item {
     property bool gpuMemoryGraph: plasmoid.configuration.gpuMemoryGraph
     property bool showGpuTemperature: plasmoid.configuration.showGpuTemperature
     property bool showDiskMonitor: plasmoid.configuration.showDiskMonitor
+    property bool showDiskDirty: plasmoid.configuration.showDiskDirty
 
     property double diskReadTotal: plasmoid.configuration.diskReadTotal
     property double diskWriteTotal: plasmoid.configuration.diskWriteTotal
@@ -409,6 +410,19 @@ Item {
 
         uplimits: [diskReadTotal * (1024 * 1024), diskWriteTotal * (1024 * 1024)]
         sensors: ["disk/all/read", "disk/all/write"]
+
+        hasFirstLeftLabel: showDiskDirty
+        firstLeftLabel: showDiskDirty ? "Dirty" : ""
+        onDataTick: {
+            if (canSeeValue(0) && showDiskDirty) {
+                firstLineLeftLabel.text = Functions.getDiskDirty()
+            }
+        }
+        onShowValueWhenMouseMove: {
+            if (showDiskDirty) {
+                firstLineLeftLabel.text = Functions.getDiskDirty()
+            }
+        }
     }
 
     // Click action

@@ -82,8 +82,24 @@ function formatByteValue(value, dialect, precision = 1) {
     parseFloat(
       (value / Math.pow(dialect.multiplier, unit)).toFixed(precision)
     ) +
-    " " +
+    (precision !== 0 ? " " : "") +
     sizes[unit] +
     dialect.suffix
   );
+}
+
+const diskDirtyDialect = {
+  suffix: "",
+  kiloChar: "K",
+  multiplier: 1024,
+}
+
+function getDiskDirty() {
+  var xhr = new XMLHttpRequest;
+  xhr.open("GET", "/proc/meminfo", false);
+  xhr.send();
+  var ret = xhr.responseText;
+  var dirtyLine = ret.split("\n").find(s=>s.startsWith("Dirty")).split(/\s+/);
+  var dirtySize = dirtyLine[1] * 1024;
+  return formatByteValue(dirtySize, diskDirtyDialect, 0);
 }
