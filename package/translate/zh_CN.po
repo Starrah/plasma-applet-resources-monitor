@@ -1,4 +1,4 @@
-# Translation of resources-monitor in LANGUAGE
+# Translation of resources-monitor in zh_CN
 # Copyright (C) 2024
 # This file is distributed under the same license as the resources-monitor package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: resources-monitor\n"
 "Report-Msgid-Bugs-To: https://github.com/orblazer/plasma-applet-resources-monitor\n"
-"POT-Creation-Date: 2024-07-22 14:04+0200\n"
+"POT-Creation-Date: 2024-11-26 20:57+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../contents/config/config.qml:6
-#: ../contents/ui/config/ConfigAppearance.qml:49
+#: ../contents/config/config.qml:6 ../contents/ui/config/ConfigAppearance.qml:49
 msgctxt "Config header"
 msgid "Graphs"
 msgstr "仪表"
@@ -78,8 +77,7 @@ msgctxt "Graph label"
 msgid "Clock"
 msgstr "频率"
 
-#: ../contents/ui/components/graph/CpuGraph.qml:31
-#: ../contents/ui/components/graph/GpuGraph.qml:23
+#: ../contents/ui/components/graph/CpuGraph.qml:31 ../contents/ui/components/graph/GpuGraph.qml:23
 msgctxt "Graph label"
 msgid "Temp."
 msgstr "温度"
@@ -94,23 +92,32 @@ msgctxt "Graph label"
 msgid "Write"
 msgstr "写入"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:38
-#: ../contents/ui/config/dialog/EditDisk.qml:39
+#: ../contents/ui/components/graph/DiskGraph.qml:38 ../contents/ui/config/dialog/EditDisk.qml:39
 msgctxt "Disk graph icon : Read"
 msgid " R"
 msgstr " R"
 
-#: ../contents/ui/components/graph/DiskGraph.qml:40
-#: ../contents/ui/config/dialog/EditDisk.qml:39
+#: ../contents/ui/components/graph/DiskGraph.qml:40 ../contents/ui/config/dialog/EditDisk.qml:39
 msgctxt "Disk graph icon : Write"
 msgid "W"
 msgstr "W"
 
-#: ../contents/ui/components/graph/GpuGraph.qml:40
-#: ../contents/ui/components/graph/MemoryGraph.qml:43
+#: ../contents/ui/components/graph/GpuGraph.qml:23
+msgid "VRAM"
+msgstr "显存"
+
+#: ../contents/ui/components/graph/GpuGraph.qml:40 ../contents/ui/components/graph/MemoryGraph.qml:43
 msgctxt "Percent unit"
 msgid "%1%"
 msgstr "%1%"
+
+#: ../contents/ui/components/graph/MemoryGraph.qml:20
+msgid "RAM"
+msgstr "内存"
+
+#: ../contents/ui/components/graph/MemoryGraph.qml:20 ../contents/ui/config/dialog/EditMemory.qml:57
+msgid "Swap"
+msgstr "交换空间"
 
 #: ../contents/ui/components/graph/MemoryGraph.qml:20
 msgctxt "Graph label"
@@ -127,7 +134,7 @@ msgctxt "Graph label"
 msgid "Sending"
 msgstr "上传"
 
-#: ../contents/ui/config/AvailableGraphProxy.qml:164
+#: ../contents/ui/config/AvailableGraphProxy.qml:189
 msgid "All"
 msgstr "全部"
 
@@ -154,17 +161,13 @@ msgstr "这使得仪表可以完全充满整个面板的宽度和高度"
 msgid "History amount:"
 msgstr "数据数量："
 
-#: ../contents/ui/config/ConfigAppearance.qml:91
-#: ../contents/ui/config/controls/ColorSelector.qml:26
-#: ../contents/ui/config/dialog/EditDisk.qml:17
-#: ../contents/ui/config/dialog/EditNetwork.qml:19
+#: ../contents/ui/config/ConfigAppearance.qml:91 ../contents/ui/config/controls/ColorSelector.qml:26
+#: ../contents/ui/config/dialog/EditDisk.qml:17 ../contents/ui/config/dialog/EditNetwork.qml:19
 msgid "Custom"
 msgstr "自定义"
 
-#: ../contents/ui/config/ConfigAppearance.qml:95
-#: ../contents/ui/config/ConfigMisc.qml:61
-#: ../contents/ui/config/dialog/EditCpu.qml:50
-#: ../contents/ui/config/dialog/EditGpu.qml:23
+#: ../contents/ui/config/ConfigAppearance.qml:95 ../contents/ui/config/ConfigMisc.qml:61
+#: ../contents/ui/config/dialog/EditCpu.qml:50 ../contents/ui/config/dialog/EditGpu.qml:23
 #: ../contents/ui/config/dialog/EditMemory.qml:53
 msgid "Disabled"
 msgstr "关闭"
@@ -249,14 +252,10 @@ msgstr "警告文字颜色"
 msgid "Warning:"
 msgstr "警告："
 
-#: ../contents/ui/config/ConfigAppearance.qml:255
-#: ../contents/ui/config/ConfigAppearance.qml:260
-#: ../contents/ui/config/dialog/EditCpu.qml:160
-#: ../contents/ui/config/dialog/EditCpu.qml:171
-#: ../contents/ui/config/dialog/EditDisk.qml:122
-#: ../contents/ui/config/dialog/EditGpu.qml:92
-#: ../contents/ui/config/dialog/EditGpu.qml:103
-#: ../contents/ui/config/dialog/EditNetwork.qml:208
+#: ../contents/ui/config/ConfigAppearance.qml:255 ../contents/ui/config/ConfigAppearance.qml:260
+#: ../contents/ui/config/dialog/EditCpu.qml:160 ../contents/ui/config/dialog/EditCpu.qml:171
+#: ../contents/ui/config/dialog/EditDisk.qml:122 ../contents/ui/config/dialog/EditGpu.qml:92
+#: ../contents/ui/config/dialog/EditGpu.qml:103 ../contents/ui/config/dialog/EditNetwork.qml:208
 msgctxt "Chart color"
 msgid "Choose text color"
 msgstr "选择颜色"
@@ -265,69 +264,67 @@ msgstr "选择颜色"
 msgid "Critical:"
 msgstr "危险："
 
-#: ../contents/ui/config/ConfigGraph.qml:70
+#: ../contents/ui/config/ConfigGraph.qml:80
 msgid "The graphs as been upgraded to new version, please save it."
 msgstr "仪表配置已被更新，请将其保存。"
 
-#: ../contents/ui/config/ConfigGraph.qml:141
+#: ../contents/ui/config/ConfigGraph.qml:157
 msgid "Fix..."
 msgstr "编辑"
 
-#: ../contents/ui/config/ConfigGraph.qml:142
-#: ../contents/ui/config/ConfigGraph.qml:151
+#: ../contents/ui/config/ConfigGraph.qml:158 ../contents/ui/config/ConfigGraph.qml:167
 msgctxt "@info:tooltip"
 msgid "Edit \"%1\" graph"
 msgstr "编辑 \"%1\" 仪表"
 
-#: ../contents/ui/config/ConfigGraph.qml:159
+#: ../contents/ui/config/ConfigGraph.qml:175
 msgctxt "@info:tooltip"
 msgid "Delete \"%1\" graph"
 msgstr "删除 \"%1\" 仪表"
 
-#: ../contents/ui/config/ConfigGraph.qml:185
+#: ../contents/ui/config/ConfigGraph.qml:201
 msgid "No graph selected"
 msgstr "未添加任何仪表"
 
-#: ../contents/ui/config/ConfigGraph.qml:186
+#: ../contents/ui/config/ConfigGraph.qml:202
 msgctxt "@info"
 msgid "Click <i>%1</i> to get started"
 msgstr "点击 <i>%1</i> 来添加"
 
-#: ../contents/ui/config/ConfigGraph.qml:198
+#: ../contents/ui/config/ConfigGraph.qml:214
 msgid "Add graph…"
 msgstr "添加仪表"
 
-#: ../contents/ui/config/ConfigGraph.qml:210
-#: ../contents/ui/config/ConfigGraph.qml:326
+#: ../contents/ui/config/ConfigGraph.qml:226 ../contents/ui/config/ConfigGraph.qml:342
 msgctxt "@title:window"
 msgid "Edit graph: %1"
 msgstr "编辑仪表: %1"
 
-#: ../contents/ui/config/ConfigGraph.qml:262
+#: ../contents/ui/config/ConfigGraph.qml:278
 msgctxt "@title:window"
 msgid "Add graph"
 msgstr "添加仪表"
 
-#: ../contents/ui/config/ConfigGraph.qml:307
+#: ../contents/ui/config/ConfigGraph.qml:323
 msgctxt "@info:tooltip"
 msgid "Add"
 msgstr "添加"
 
-#: ../contents/ui/config/ConfigGraph.qml:347
+#: ../contents/ui/config/ConfigGraph.qml:363
 msgid "New GPU:"
 msgstr "新的GPU："
 
-#: ../contents/ui/config/ConfigGraph.qml:378
+#: ../contents/ui/config/ConfigGraph.qml:394
 msgctxt "@title:window"
 msgid "Remove graph"
 msgstr "删除仪表"
 
-#: ../contents/ui/config/ConfigGraph.qml:379
+#: ../contents/ui/config/ConfigGraph.qml:395
 msgctxt "%1 is an graph name"
 msgid "Do you want remove graph \"%1\" ?"
 msgstr "你确定要删除仪表 \"%1\" 吗？"
 
-#: ../contents/ui/config/ConfigGraph.qml:384
+#: ../contents/ui/config/ConfigGraph.qml:400
 msgid "Delete"
 msgstr "删除"
 
@@ -450,12 +447,9 @@ msgctxt "@info:tooltip"
 msgid "Critical threshold"
 msgstr "危险阈值"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:15
-#: ../contents/ui/config/dialog/EditCpu.qml:148
-#: ../contents/ui/config/dialog/EditDisk.qml:110
-#: ../contents/ui/config/dialog/EditGpu.qml:80
-#: ../contents/ui/config/dialog/EditMemory.qml:15
-#: ../contents/ui/config/dialog/EditMemory.qml:101
+#: ../contents/ui/config/dialog/EditCpu.qml:15 ../contents/ui/config/dialog/EditCpu.qml:148
+#: ../contents/ui/config/dialog/EditDisk.qml:110 ../contents/ui/config/dialog/EditGpu.qml:80
+#: ../contents/ui/config/dialog/EditMemory.qml:15 ../contents/ui/config/dialog/EditMemory.qml:101
 #: ../contents/ui/config/dialog/EditNetwork.qml:196
 msgid "First line:"
 msgstr "第一行："
@@ -472,12 +466,9 @@ msgstr "内核态使用率"
 msgid "User usage"
 msgstr "用户态使用率"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:44
-#: ../contents/ui/config/dialog/EditCpu.qml:159
-#: ../contents/ui/config/dialog/EditDisk.qml:121
-#: ../contents/ui/config/dialog/EditGpu.qml:16
-#: ../contents/ui/config/dialog/EditGpu.qml:91
-#: ../contents/ui/config/dialog/EditMemory.qml:112
+#: ../contents/ui/config/dialog/EditCpu.qml:44 ../contents/ui/config/dialog/EditCpu.qml:159
+#: ../contents/ui/config/dialog/EditDisk.qml:121 ../contents/ui/config/dialog/EditGpu.qml:16
+#: ../contents/ui/config/dialog/EditGpu.qml:91 ../contents/ui/config/dialog/EditMemory.qml:112
 #: ../contents/ui/config/dialog/EditNetwork.qml:207
 msgid "Second Line:"
 msgstr "第二行："
@@ -520,56 +511,44 @@ msgid ""
 "frequency average calculation."
 msgstr "<b>只针对Intel 12代以上CPU</b>，在这里填写你的CPU所拥有的E核的数量。用于将E核的频率和P核分别统计的功能。"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:116
-#: ../contents/ui/config/dialog/EditGpu.qml:45
+#: ../contents/ui/config/dialog/EditCpu.qml:116 ../contents/ui/config/dialog/EditGpu.qml:45
 msgid "Show temperature"
 msgstr "显示温度"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:126
-#: ../contents/ui/config/dialog/EditGpu.qml:57
+#: ../contents/ui/config/dialog/EditCpu.qml:126 ../contents/ui/config/dialog/EditGpu.qml:57
 msgid "Temperature threshold:"
 msgstr "温度警报阈值："
 
-#: ../contents/ui/config/dialog/EditCpu.qml:143
-#: ../contents/ui/config/dialog/EditDisk.qml:105
-#: ../contents/ui/config/dialog/EditGpu.qml:75
-#: ../contents/ui/config/dialog/EditMemory.qml:96
+#: ../contents/ui/config/dialog/EditCpu.qml:143 ../contents/ui/config/dialog/EditDisk.qml:105
+#: ../contents/ui/config/dialog/EditGpu.qml:75 ../contents/ui/config/dialog/EditMemory.qml:96
 #: ../contents/ui/config/dialog/EditNetwork.qml:191
 msgid "Colors"
 msgstr "颜色"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:149
-#: ../contents/ui/config/dialog/EditDisk.qml:111
-#: ../contents/ui/config/dialog/EditGpu.qml:81
-#: ../contents/ui/config/dialog/EditMemory.qml:102
-#: ../contents/ui/config/dialog/EditMemory.qml:113
-#: ../contents/ui/config/dialog/EditNetwork.qml:197
+#: ../contents/ui/config/dialog/EditCpu.qml:149 ../contents/ui/config/dialog/EditDisk.qml:111
+#: ../contents/ui/config/dialog/EditGpu.qml:81 ../contents/ui/config/dialog/EditMemory.qml:102
+#: ../contents/ui/config/dialog/EditMemory.qml:113 ../contents/ui/config/dialog/EditNetwork.qml:197
 msgctxt "Chart color"
 msgid "Choose series color"
 msgstr "选择颜色"
 
-#: ../contents/ui/config/dialog/EditCpu.qml:170
-#: ../contents/ui/config/dialog/EditGpu.qml:102
+#: ../contents/ui/config/dialog/EditCpu.qml:170 ../contents/ui/config/dialog/EditGpu.qml:102
 msgid "Third Line:"
 msgstr "第三行："
 
-#: ../contents/ui/config/dialog/EditDisk.qml:21
-#: ../contents/ui/config/dialog/EditNetwork.qml:23
+#: ../contents/ui/config/dialog/EditDisk.qml:21 ../contents/ui/config/dialog/EditNetwork.qml:23
 msgid "Automatic"
 msgstr "自动"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:30
-#: ../contents/ui/config/dialog/EditNetwork.qml:56
+#: ../contents/ui/config/dialog/EditDisk.qml:30 ../contents/ui/config/dialog/EditNetwork.qml:56
 msgid "Swap first and second line"
 msgstr "交换第一行和第二行"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:39
-#: ../contents/ui/config/dialog/EditNetwork.qml:65
+#: ../contents/ui/config/dialog/EditDisk.qml:39 ../contents/ui/config/dialog/EditNetwork.qml:65
 msgid "Show icons (%1 / %2)"
 msgstr "显示提示图标 (%1 / %2)"
 
-#: ../contents/ui/config/dialog/EditDisk.qml:49
-#: ../contents/ui/config/dialog/EditNetwork.qml:135
+#: ../contents/ui/config/dialog/EditDisk.qml:49 ../contents/ui/config/dialog/EditNetwork.qml:135
 msgid "Maximum transfer speed"
 msgstr "最大传输速率"
 
@@ -587,8 +566,7 @@ msgstr "写入："
 msgid "Memory (in KiB)"
 msgstr "内存 (KiB)"
 
-#: ../contents/ui/config/dialog/EditGpu.qml:31
-#: ../contents/ui/config/dialog/EditMemory.qml:65
+#: ../contents/ui/config/dialog/EditGpu.qml:31 ../contents/ui/config/dialog/EditMemory.qml:65
 msgid "Memory (in %)"
 msgstr "内存 (%)"
 
@@ -611,10 +589,6 @@ msgstr "应用程序内存 (%)"
 #: ../contents/ui/config/dialog/EditMemory.qml:47
 msgid "Second line:"
 msgstr "第二行："
-
-#: ../contents/ui/config/dialog/EditMemory.qml:57
-msgid "Swap"
-msgstr "交换空间"
 
 #: ../contents/ui/config/dialog/EditMemory.qml:61
 msgid "Swap (in %)"
