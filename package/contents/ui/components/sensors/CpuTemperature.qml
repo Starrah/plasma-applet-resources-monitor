@@ -17,8 +17,9 @@ Item {
             value = _sensor.getValue();
             if (value != null) {
                 root.value = value;
+                _failedAttempt = 0;
                 return;
-            } else if (_failedAttempt++ > 5) {
+            } else if (_failedAttempt++ > 15) {
                 // Disable official try if not exist
                 _sensor.enabled = false;
             }
